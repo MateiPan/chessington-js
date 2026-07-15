@@ -10,7 +10,6 @@ export default class Queen extends Piece {
     }
 
     public getAvailableMoves(board: Board): Square[] {
-
         let bishopLikeMoves: Square[] = PiecesMoves.bishopMoves(board, board.findPiece(this));
         let rookLikeMoves: Square[] = PiecesMoves.rookMoves(board, board.findPiece(this));
         return rookLikeMoves.concat(bishopLikeMoves);
