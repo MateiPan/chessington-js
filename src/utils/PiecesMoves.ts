@@ -4,7 +4,7 @@ import Player from "../engine/player";
 
 export default class PiecesMoves {
 
-    public static rookMoves(board: Board, rookPosition: Square) {
+    public static rookMoves(board: Board, rookPosition: Square): Square[] {
 
         let row: number = rookPosition.row;
         let col: number = rookPosition.col;
@@ -58,7 +58,7 @@ export default class PiecesMoves {
         return moves;
     }
 
-    public static bishopMoves(board: Board, bishopPosition: Square) {
+    public static bishopMoves(board: Board, bishopPosition: Square): Square[] {
         let moves: Square[] = [];
 
         let row: number = bishopPosition.row;
@@ -113,7 +113,7 @@ export default class PiecesMoves {
         return moves;
     }
 
-    public static pawnMoves(player: Player, board: Board, pawnPosition: Square) {
+    public static pawnMoves(player: Player, board: Board, pawnPosition: Square): Square[] {
         let moves: Square[] = [];
 
         let row: number = pawnPosition.row;
@@ -134,7 +134,7 @@ export default class PiecesMoves {
         return moves;
     }
 
-    public static knightMoves(board: Board, knightPosition: Square) {
+    public static knightMoves(board: Board, knightPosition: Square): Square[] {
         let row: number = knightPosition.row;
         let col: number = knightPosition.col;
 
@@ -142,6 +142,24 @@ export default class PiecesMoves {
 
         let dx: number[] = [-1, -2, -2, -1, 1, 2, 2, 1];
         let dy: number[] = [-2, -1, 1, 2, 2, 1, -1, -2];
+
+        for(let i: number = 0; i < 8; i++) {
+            if (row + dx[i] >= 0 && row + dy[i] >= 0 && row + dx[i] < 8 && col + dy[i] < 8) {
+                moves.push(Square.at(row + dx[i], col + dy[i]));
+            }
+        }
+
+        return moves;
+    }
+
+    public static kingMoves(board: Board, kingPosition: Square): Square[] {
+        let moves:Square[] = [];
+
+        let row: number = kingPosition.row;
+        let col: number = kingPosition.col;
+
+        let dx: number[] = [1, 0, -1, 0, 1, 1, -1, -1];
+        let dy: number[] = [0, -1, 0, 1, -1, 1, -1, 1];
 
         for(let i: number = 0; i < 8; i++) {
             if (row + dx[i] >= 0 && row + dy[i] >= 0 && row + dx[i] < 8 && col + dy[i] < 8) {
