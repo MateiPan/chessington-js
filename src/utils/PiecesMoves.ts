@@ -3,10 +3,10 @@ import Square from "../engine/square";
 
 export default class PiecesMoves {
 
-    public static rookMoves(board: Board, piecePosition: Square) {
+    public static rookMoves(board: Board, rookPosition: Square) {
 
-        let row: number = piecePosition.row;
-        let col: number = piecePosition.col;
+        let row: number = rookPosition.row;
+        let col: number = rookPosition.col;
         let moves: Square[] = [];
 
         // the rook can only move from the left boundary to the right boundary
@@ -46,13 +46,68 @@ export default class PiecesMoves {
 
         // Iterate and add all the squares between the left and right boundary
         for (let j: number = leftBoundary + 1; j < rightBoundary; j++)
-            if(piecePosition.col !== j)
-                moves.push(Square.at(piecePosition.row, j));
+            if(rookPosition.col !== j)
+                moves.push(Square.at(rookPosition.row, j));
 
         // Iterate and add all the squares between the top and bottom boundary
         for (let i: number = bottomBoundary + 1; i < topBoundary; i++)
-            if(piecePosition.row !== i)
-                moves.push(Square.at(i, piecePosition.col));
+            if(rookPosition.row !== i)
+                moves.push(Square.at(i, rookPosition.col));
+
+        return moves;
+    }
+
+    public static bishopMoves(board: Board, bishopPosition: Square) {
+        let moves: Square[] = [];
+
+        let row: number = bishopPosition.row;
+        let col: number = bishopPosition.col;
+
+        // first, we check the moves parallel to the main diagonal, here, we move the coordinates next to an edge
+        if(row > col) {
+            row -= col;
+            col = 0;
+        } else {
+            col -= row;
+            row = 0;
+        }
+
+        // here, we move the piece until it reaches another edge
+        while(row < 8 && col < 8) {
+            if(row == bishopPosition.row && col == bishopPosition.col) {
+                row++;
+                col++;
+                continue;
+            }
+            moves.push(Square.at(row, col));
+            row++;
+            col++;
+        }
+
+        row = bishopPosition.row;
+        col = bishopPosition.col;
+
+
+        // then, we check the moves parallel to the second diagonal
+        if(row > 7 - col) {
+            row -= col;
+            col = 7;
+        } else {
+            col += row;
+            row = 0;
+        }
+
+        // and we move the piece until it reaches another edge
+        while(row < 8 && col >= 0) {
+            if(row == bishopPosition.row && col == bishopPosition.col) {
+                row++;
+                col--;
+                continue;
+            }
+            moves.push(Square.at(row, col));
+            row++;
+            col--;
+        }
 
         return moves;
     }
