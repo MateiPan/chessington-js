@@ -9,7 +9,7 @@ describe('Pawn', () => {
     
     let board: Board;
     beforeEach(() => board = new Board(Player.WHITE));
-    
+
     describe('white pawns', () => {
 
         beforeEach(() => board = new Board());
