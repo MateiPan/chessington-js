@@ -6,7 +6,7 @@ import Square from '../../../src/engine/square';
 
 describe('Pawn', () => {
 
-    let board;
+    let board: Board;
     beforeEach(() => board = new Board());
 
     describe('white pawns', () => {
@@ -15,9 +15,10 @@ describe('Pawn', () => {
             const pawn = new Pawn(Player.WHITE);
             board.setPiece(Square.at(0, 0), pawn);
 
-            const moves = pawn.getAvailableMoves(board);
+            let moves: Square[];
+            moves = pawn.getAvailableMoves(board);
 
-            moves.should.deep.include(Square.at(1, 0));
+            moves.should.deep.include(Square.at(1, 0)); // deep.include means that we test the values in the array, not the reference
         });
 
     });
