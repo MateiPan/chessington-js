@@ -1,5 +1,6 @@
 ﻿import Board from "../engine/board";
 import Square from "../engine/square";
+import Player from "../engine/player";
 
 export default class PiecesMoves {
 
@@ -108,6 +109,27 @@ export default class PiecesMoves {
             row++;
             col--;
         }
+
+        return moves;
+    }
+
+    public static pawnMoves(player: Player, board: Board, pawnPosition: Square) {
+        let moves: Square[] = [];
+
+        let row: number = pawnPosition.row;
+        let col: number = pawnPosition.col;
+
+        if (player === Player.WHITE && board.getPiece(Square.at(row + 1, col)) === undefined)
+            moves.push(Square.at(row + 1, col));
+
+        if(player === Player.WHITE && row === 1 && board.getPiece(Square.at(row + 1, col)) === undefined && board.getPiece(Square.at(row + 2, col)) === undefined)
+            moves.push(Square.at(row + 2, col));
+
+        if (player === Player.BLACK && board.getPiece(Square.at(row - 1, col)) === undefined)
+            moves.push(Square.at(row - 1, col));
+
+        if(player === Player.BLACK && row === 6 && board.getPiece(Square.at(row - 1, col)) === undefined && board.getPiece(Square.at(row - 2, col)) === undefined)
+            moves.push(Square.at(row - 2, col));
 
         return moves;
     }
